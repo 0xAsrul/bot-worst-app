@@ -15,6 +15,11 @@ ENTRY = (
 
 
 def main() -> None:
+    # Guard the entry contract: one sentence, clean spacing, within cap.
+    assert ENTRY == ENTRY.strip(), "entry has leading/trailing whitespace"
+    assert "  " not in ENTRY, "entry contains double spaces"
+    assert ENTRY.count(".") == 1 and ENTRY.endswith("."), "entry must be exactly one sentence"
+    assert len(ENTRY) <= 240, "entry exceeds 240-character cap"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(ENTRY)
